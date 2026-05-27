@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GenAI101 — Build with AI</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">⌬</span>
+      <span class="brand-name">GenAI101</span>
+      <span class="brand-sub">build with AI</span>
+    </div>
+    <div class="learner-pill" id="learner-pill" hidden>
+      <span id="learner-name"></span>
+      <button class="link-btn" id="export-btn" title="Export your progress as JSON to send to Nolan">Export progress</button>
+      <button class="link-btn ghost" id="reset-btn" title="Wipe progress and start over">Reset</button>
+    </div>
+  </header>
+
+  <main id="app"></main>
+
+  <!-- TEMPLATES -->
+  <template id="tpl-welcome">
+    <section class="welcome">
+      <h1>Welcome.</h1>
+      <p class="lede">
+        This is a short, friendly crash course on building with AI as your co-developer.
+        It's <strong>not</strong> the only way to do this — it's <strong>one</strong> way,
+        and it's the way I work. The whole thing takes <strong>1–2 hours max</strong>;
+        most lessons are 5 minutes. By the end you'll have the basics to start building.
+      </p>
+      <p class="lede small">
+        Already know some of this? You can test out of any group of modules at the top of the dashboard.
+        Pass the test in time and those modules skip automatically.
+      </p>
+      <p class="lede small">
+        Pop your name in below and we'll get you started. Your progress saves locally on
+        this device — when you finish (or hit a checkpoint), use <strong>Export progress</strong>
+        at the top right to send a report to Nolan.
+      </p>
+      <form id="signup-form" class="signup">
+        <label>
+          Your name
+          <input type="text" name="name" required minlength="2" placeholder="What should we call you?" autocomplete="name" />
+        </label>
+        <button class="btn primary" type="submit">Let's go →</button>
+      </form>
+    </section>
+  </template>
+
+  <template id="tpl-dashboard">
+    <section class="dashboard">
+      <div class="dash-header">
+        <h1>Your path</h1>
+        <p class="muted">
+          The whole curriculum is <strong>1–2 hours</strong>. Modules are short — most are
+          5 minutes of reading plus a quick quiz (<span data-passing-grade></span>% to pass).
+          They cover the very basics of building with AI.
+        </p>
+      </div>
+      <div class="progress-bar-wrap" aria-label="Overall progress">
+        <div class="progress-bar"><div class="progress-fill" id="overall-fill"></div></div>
+        <span class="progress-label" id="overall-label">0%</span>
+      </div>
+
+      <div class="tests-section top">
+        <h2>Test out (optional)</h2>
+        <p class="muted">
+          Already comfortable with a group of modules? Pass the test in time and they skip
+          automatically. <strong>But honestly</strong>, the modules are so short that going through
+          them is usually faster than studying for a test. Your call.
+        </p>
+        <ul class="test-list" id="test-list-skip"></ul>
+      </div>
+
+      <h2 class="modules-heading">Modules</h2>
+      <ol class="module-list" id="module-list"></ol>
+
+      <div class="tests-section final">
+        <h2>Final challenge</h2>
+        <p class="muted">
+          One harder, cross-cutting test to make sure it all clicked. Unlocks once you've
+          finished (or tested out of) every module.
+        </p>
+        <ul class="test-list" id="test-list-final"></ul>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-lesson">
+    <section class="lesson-view">
+      <button class="link-btn back" data-action="back">← Back to path</button>
+      <div class="lesson-meta">
+        <span class="badge" id="lesson-num"></span>
+        <h1 id="lesson-title"></h1>
+        <p class="muted" id="lesson-blurb"></p>
+      </div>
+      <article class="lesson-body" id="lesson-body"></article>
+      <div class="lesson-foot">
+        <button class="btn primary" id="lesson-quiz-btn">Take the quiz →</button>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-setup-gate">
+    <section class="setup-gate-view">
+      <button class="link-btn back" data-action="back">← Back to path</button>
+      <div class="quiz-meta">
+        <span class="badge">setup required</span>
+        <h1 id="setup-gate-title"></h1>
+        <p class="muted" id="setup-gate-blurb"></p>
+      </div>
+      <div id="setup-gate-body"></div>
+      <div class="quiz-foot">
+        <button class="btn primary" id="setup-gate-continue" disabled>Continue →</button>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-quiz">
+    <section class="quiz-view">
+      <button class="link-btn back" data-action="back">← Back to path</button>
+      <div class="quiz-meta">
+        <span class="badge" id="quiz-kind"></span>
+        <h1 id="quiz-title"></h1>
+        <p class="muted" id="quiz-blurb"></p>
+        <div class="quiz-stats">
+          <span id="quiz-progress"></span>
+          <span id="quiz-timer" hidden></span>
+        </div>
+      </div>
+      <form class="quiz-form" id="quiz-form"></form>
+      <div class="quiz-foot">
+        <button class="btn primary" id="quiz-submit">Submit answers</button>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-result">
+    <section class="result-view">
+      <div class="result-card" id="result-card"></div>
+      <div class="result-foot">
+        <button class="btn" data-action="back">Back to path</button>
+        <button class="btn primary" id="result-next" hidden>Next module →</button>
+        <button class="btn ghost" id="result-retry" hidden>Try again</button>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-export">
+    <section class="export-view">
+      <h1>Your progress report</h1>
+      <p>Send this to Nolan however you like — copy/paste, or download the JSON file and email it.</p>
+      <textarea id="export-text" readonly rows="14"></textarea>
+      <div class="export-actions">
+        <button class="btn primary" id="export-copy">Copy to clipboard</button>
+        <button class="btn" id="export-download">Download JSON</button>
+        <button class="btn ghost" data-action="back">Back</button>
+      </div>
+    </section>
+  </template>
+
+  <script src="assets/js/curriculum.js"></script>
+  <script src="assets/js/lessons.js"></script>
+  <script src="assets/js/progress.js"></script>
+  <script src="assets/js/markdown.js"></script>
+  <script src="assets/js/quiz-engine.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

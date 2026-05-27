@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="The build loop: think, prompt, run, look, correct, repeat — back to think.">
+  <style>
+    .bg          { fill: #1d2230; }
+    .node        { fill: #161922; stroke: #2a3040; stroke-width: 1.5; }
+    .node-accent { fill: rgba(217,119,87,0.20); stroke: #d97757; stroke-width: 1.5; }
+    .arrow       { fill: none; stroke: #d97757; stroke-width: 2; }
+    .center-card { fill: rgba(217,119,87,0.10); stroke: #d97757; stroke-width: 1; stroke-dasharray: 4 4; }
+    .text        { fill: #e7eaf0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .text-dim    { fill: #aab1c0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .text-mute   { fill: #7a8294; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .accent      { fill: #d97757; }
+    .node-text   { font-size: 14px; font-weight: 700; }
+    .node-sub    { font-size: 11px; }
+    .title       { font-size: 14px; font-weight: 700; letter-spacing: 0.4px; }
+    .small       { font-size: 12px; }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97757" />
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="640" height="480" rx="10" />
+
+  <!-- Center label -->
+  <rect class="center-card" x="220" y="200" width="200" height="80" rx="10" />
+  <text class="accent title" x="320" y="232" text-anchor="middle">The build loop</text>
+  <text class="text-dim small" x="320" y="256" text-anchor="middle">minutes, not hours</text>
+  <text class="text-mute small" x="320" y="272" text-anchor="middle">small steps, real feedback</text>
+
+  <!-- Six nodes on a circle, centered at (320, 240), radius ~170 -->
+  <!-- 0°  (top):       think       -->
+  <!-- 60° (upper-right): prompt    -->
+  <!-- 120° (lower-right): run      -->
+  <!-- 180° (bottom):     look      -->
+  <!-- 240° (lower-left): correct   -->
+  <!-- 300° (upper-left): repeat    -->
+
+  <!-- 1. think  (top) -->
+  <circle class="node-accent" cx="320" cy="70" r="46" />
+  <text class="text node-text" x="320" y="68" text-anchor="middle">think</text>
+  <text class="text-dim node-sub" x="320" y="86" text-anchor="middle">one paragraph</text>
+
+  <!-- 2. prompt (upper-right) -->
+  <circle class="node" cx="487" cy="155" r="46" />
+  <text class="text node-text" x="487" y="153" text-anchor="middle">prompt</text>
+  <text class="text-dim node-sub" x="487" y="171" text-anchor="middle">goal + context</text>
+
+  <!-- 3. run (lower-right) -->
+  <circle class="node" cx="487" cy="325" r="46" />
+  <text class="text node-text" x="487" y="323" text-anchor="middle">run</text>
+  <text class="text-dim node-sub" x="487" y="341" text-anchor="middle">actually execute</text>
+
+  <!-- 4. look (bottom) -->
+  <circle class="node" cx="320" cy="410" r="46" />
+  <text class="text node-text" x="320" y="408" text-anchor="middle">look</text>
+  <text class="text-dim node-sub" x="320" y="426" text-anchor="middle">read the result</text>
+
+  <!-- 5. correct (lower-left) -->
+  <circle class="node" cx="153" cy="325" r="46" />
+  <text class="text node-text" x="153" y="323" text-anchor="middle">correct</text>
+  <text class="text-dim node-sub" x="153" y="341" text-anchor="middle">steer in place</text>
+
+  <!-- 6. repeat (upper-left) -->
+  <circle class="node" cx="153" cy="155" r="46" />
+  <text class="text node-text" x="153" y="153" text-anchor="middle">repeat</text>
+  <text class="text-dim node-sub" x="153" y="171" text-anchor="middle">tiny next step</text>
+
+  <!-- Arrows along the circle (clockwise) -->
+  <!-- think → prompt -->
+  <path class="arrow" d="M 365 95 A 170 170 0 0 1 442 130" marker-end="url(#arrowhead)" />
+  <!-- prompt → run -->
+  <path class="arrow" d="M 487 201 A 170 170 0 0 1 487 279" marker-end="url(#arrowhead)" />
+  <!-- run → look -->
+  <path class="arrow" d="M 442 350 A 170 170 0 0 1 365 385" marker-end="url(#arrowhead)" />
+  <!-- look → correct -->
+  <path class="arrow" d="M 275 385 A 170 170 0 0 1 198 350" marker-end="url(#arrowhead)" />
+  <!-- correct → repeat -->
+  <path class="arrow" d="M 153 279 A 170 170 0 0 1 153 201" marker-end="url(#arrowhead)" />
+  <!-- repeat → think -->
+  <path class="arrow" d="M 198 130 A 170 170 0 0 1 275 95" marker-end="url(#arrowhead)" />
+
+  <!-- Bottom caption -->
+  <text class="text-mute small" x="320" y="465" text-anchor="middle">
+    Each loop should take minutes. Tight loops = less wrong before you catch it.
+  </text>
+</svg>

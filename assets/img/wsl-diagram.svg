@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" role="img" aria-label="Windows desktop with WSL Linux running inside it. Windows is your desktop, WSL is your workshop.">
+  <style>
+    .bg          { fill: #1d2230; }
+    .windows-bg  { fill: #243049; stroke: #2a3040; stroke-width: 1; }
+    .windows-bar { fill: #2e3b5a; }
+    .wsl-window  { fill: #0a0c12; stroke: #2a3040; stroke-width: 1; }
+    .wsl-bar     { fill: #161922; }
+    .dot-r { fill: #f87171; }
+    .dot-y { fill: #fbbf24; }
+    .dot-g { fill: #4ade80; }
+    .accent  { fill: #d97757; }
+    .text       { fill: #e7eaf0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .text-dim   { fill: #aab1c0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .text-mute  { fill: #7a8294; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .mono       { font-family: ui-monospace, Menlo, Consolas, monospace; }
+    .title  { font-size: 14px; font-weight: 600; }
+    .label  { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+    .body   { font-size: 13px; }
+    .small  { font-size: 12px; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="760" height="380" rx="10" />
+
+  <!-- Outer "Windows" window -->
+  <rect class="windows-bg" x="40" y="40" width="680" height="300" rx="8" />
+  <rect class="windows-bar" x="40" y="40" width="680" height="32" rx="8" />
+  <rect class="windows-bar" x="40" y="60" width="680" height="12" />
+  <text class="text title" x="60" y="62">Windows  —  your desktop</text>
+  <text class="text-dim small" x="660" y="62">_ ▢ ✕</text>
+
+  <!-- Inside hint -->
+  <text class="text-mute label" x="60" y="100">HOST OS</text>
+
+  <!-- Inner WSL terminal window -->
+  <rect class="wsl-window" x="120" y="120" width="520" height="180" rx="8" />
+  <rect class="wsl-bar" x="120" y="120" width="520" height="28" rx="8" />
+  <rect class="wsl-bar" x="120" y="140" width="520" height="8" />
+  <circle class="dot-r" cx="138" cy="134" r="5" />
+  <circle class="dot-y" cx="154" cy="134" r="5" />
+  <circle class="dot-g" cx="170" cy="134" r="5" />
+  <text class="text title" x="380" y="139" text-anchor="middle">WSL — Ubuntu (your workshop)</text>
+
+  <!-- Terminal contents -->
+  <text class="accent mono body" x="140" y="174">nolan@wsl</text>
+  <text class="text-dim mono body" x="200" y="174">:</text>
+  <text class="text mono body" x="208" y="174">~/projects/INTERFaiCE$</text>
+  <text class="text mono body" x="378" y="174">ls</text>
+
+  <text class="text-dim mono small" x="140" y="196">README.md   src/   tests/   .devcontainer/</text>
+
+  <text class="accent mono body" x="140" y="224">nolan@wsl</text>
+  <text class="text-dim mono body" x="200" y="224">:</text>
+  <text class="text mono body" x="208" y="224">~/projects/INTERFaiCE$</text>
+  <text class="text mono body" x="378" y="224">code .</text>
+
+  <text class="text-mute mono small" x="140" y="248"># launches VSCode connected back into WSL</text>
+
+  <!-- caption -->
+  <text class="text-dim small" x="380" y="360" text-anchor="middle">
+    Windows is your desktop. WSL is your workshop. Same machine — different environment.
+  </text>
+</svg>

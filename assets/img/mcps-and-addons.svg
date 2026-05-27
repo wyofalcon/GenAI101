@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" role="img" aria-label="Claude Code in the center with four extension levers: MCPs (external tools), Skills (workflows), Plugins (UI/behavior), and Hooks (event automation).">
+  <style>
+    .bg          { fill: #1d2230; }
+    .card        { fill: #161922; stroke: #2a3040; stroke-width: 1; }
+    .chip        { fill: #0f1115; stroke: #2a3040; stroke-width: 1; }
+    .claude      { fill: rgba(217,119,87,0.20); stroke: #d97757; stroke-width: 2; }
+    .line        { fill: none; stroke: #d97757; stroke-width: 1.5; stroke-dasharray: 4 4; }
+    .text        { fill: #e7eaf0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .text-dim    { fill: #aab1c0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .text-mute   { fill: #7a8294; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .accent      { fill: #d97757; }
+    .mono        { font-family: ui-monospace, Menlo, Consolas, monospace; }
+    .lever-head  { font-size: 13px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; }
+    .lever-sub   { font-size: 11px; }
+    .center-head { font-size: 18px; font-weight: 700; }
+    .center-sub  { font-size: 12px; }
+    .body        { font-size: 12px; }
+    .small       { font-size: 11px; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="760" height="500" rx="10" />
+
+  <!-- Connecting lines (drawn first so they sit behind the cards) -->
+  <line class="line" x1="380" y1="220" x2="200" y2="100" />
+  <line class="line" x1="380" y1="220" x2="560" y2="100" />
+  <line class="line" x1="380" y1="290" x2="200" y2="410" />
+  <line class="line" x1="380" y1="290" x2="560" y2="410" />
+
+  <!-- Center: Claude -->
+  <circle class="claude" cx="380" cy="255" r="70" />
+  <text class="accent center-head" x="380" y="248" text-anchor="middle">Claude Code</text>
+  <text class="text-dim center-sub" x="380" y="270" text-anchor="middle">reads files, runs commands</text>
+
+  <!-- Top-left lever: MCPs -->
+  <rect class="card" x="40" y="40" width="320" height="130" rx="8" />
+  <text class="accent lever-head" x="56" y="64">MCPs</text>
+  <text class="text-dim lever-sub" x="56" y="80">Claude reaches out to your tools &amp; data</text>
+  <rect class="chip" x="56" y="92" width="84" height="22" rx="4" />
+  <text class="text small" x="98" y="107" text-anchor="middle">GitHub</text>
+  <rect class="chip" x="146" y="92" width="84" height="22" rx="4" />
+  <text class="text small" x="188" y="107" text-anchor="middle">Slack</text>
+  <rect class="chip" x="236" y="92" width="108" height="22" rx="4" />
+  <text class="text small" x="290" y="107" text-anchor="middle">Filesystem</text>
+  <rect class="chip" x="56" y="120" width="84" height="22" rx="4" />
+  <text class="text small" x="98" y="135" text-anchor="middle">Postgres</text>
+  <rect class="chip" x="146" y="120" width="84" height="22" rx="4" />
+  <text class="text small" x="188" y="135" text-anchor="middle">Drive</text>
+  <rect class="chip" x="236" y="120" width="108" height="22" rx="4" />
+  <text class="text small" x="290" y="135" text-anchor="middle">Canva · Figma</text>
+  <text class="text-mute small" x="56" y="158">"do stuff in your real systems"</text>
+
+  <!-- Top-right lever: Skills -->
+  <rect class="card" x="400" y="40" width="320" height="130" rx="8" />
+  <text class="accent lever-head" x="416" y="64">Skills</text>
+  <text class="text-dim lever-sub" x="416" y="80">drop-in workflows &amp; conventions</text>
+  <rect class="chip" x="416" y="92" width="120" height="22" rx="4" />
+  <text class="text small" x="476" y="107" text-anchor="middle">Daemonstrate</text>
+  <rect class="chip" x="542" y="92" width="80" height="22" rx="4" />
+  <text class="text small" x="582" y="107" text-anchor="middle">/review</text>
+  <rect class="chip" x="628" y="92" width="80" height="22" rx="4" />
+  <text class="text small" x="668" y="107" text-anchor="middle">/init</text>
+  <rect class="chip" x="416" y="120" width="180" height="22" rx="4" />
+  <text class="text small" x="506" y="135" text-anchor="middle">"how we name PRs"</text>
+  <rect class="chip" x="602" y="120" width="106" height="22" rx="4" />
+  <text class="text small" x="655" y="135" text-anchor="middle">your team's</text>
+  <text class="text-mute small" x="416" y="158">"how we do X around here"</text>
+
+  <!-- Bottom-left lever: Plugins -->
+  <rect class="card" x="40" y="340" width="320" height="130" rx="8" />
+  <text class="accent lever-head" x="56" y="364">Plugins</text>
+  <text class="text-dim lever-sub" x="56" y="380">extend Claude Code's UI / behavior</text>
+  <rect class="chip" x="56" y="392" width="84" height="22" rx="4" />
+  <text class="text small" x="98" y="407" text-anchor="middle">TTYL</text>
+  <rect class="chip" x="146" y="392" width="144" height="22" rx="4" />
+  <text class="text small" x="218" y="407" text-anchor="middle">cache TTL surface</text>
+  <rect class="chip" x="56" y="420" width="234" height="22" rx="4" />
+  <text class="text small" x="173" y="435" text-anchor="middle">turn-end notification tile</text>
+  <text class="text-mute small" x="56" y="458">modifies Claude Code itself</text>
+
+  <!-- Bottom-right lever: Hooks -->
+  <rect class="card" x="400" y="340" width="320" height="130" rx="8" />
+  <text class="accent lever-head" x="416" y="364">Hooks</text>
+  <text class="text-dim lever-sub" x="416" y="380">run automatically on events</text>
+  <rect class="chip" x="416" y="392" width="92" height="22" rx="4" />
+  <text class="text small" x="462" y="407" text-anchor="middle">on-commit</text>
+  <rect class="chip" x="514" y="392" width="92" height="22" rx="4" />
+  <text class="text small" x="560" y="407" text-anchor="middle">on-stop</text>
+  <rect class="chip" x="612" y="392" width="96" height="22" rx="4" />
+  <text class="text small" x="660" y="407" text-anchor="middle">on-startup</text>
+  <rect class="chip" x="416" y="420" width="292" height="22" rx="4" />
+  <text class="text small" x="562" y="435" text-anchor="middle">auto-lint · notify on long jobs · warm cache</text>
+  <text class="text-mute small" x="416" y="458">"every time X, do Y"</text>
+
+  <!-- Center subtitle -->
+  <text class="text-mute small" x="380" y="490" text-anchor="middle">Four levers. Each one is one more thing you don't have to babysit.</text>
+</svg>

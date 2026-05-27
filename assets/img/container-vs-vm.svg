@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" role="img" aria-label="Comparison of a virtual machine stack versus a container stack, plus the clone → code . → reopen-in-container devcontainer flow.">
+  <style>
+    .bg       { fill: #1d2230; }
+    .card     { fill: #161922; stroke: #2a3040; stroke-width: 1; }
+    .layer    { fill: #0f1115; stroke: #2a3040; stroke-width: 1; }
+    .heavy    { fill: rgba(248,113,113,0.18); stroke: #f87171; stroke-width: 1; }
+    .light    { fill: rgba(74,222,128,0.16); stroke: #4ade80; stroke-width: 1; }
+    .app      { fill: rgba(217,119,87,0.20); stroke: #d97757; stroke-width: 1; }
+    .accent       { fill: #d97757; }
+    .text         { fill: #e7eaf0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .text-dim     { fill: #aab1c0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .text-mute    { fill: #7a8294; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .text-bad     { fill: #f87171; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .text-ok      { fill: #4ade80; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .mono     { font-family: ui-monospace, Menlo, Consolas, monospace; }
+    .title    { font-size: 15px; font-weight: 700; }
+    .header   { font-size: 12px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; }
+    .body     { font-size: 13px; }
+    .small    { font-size: 12px; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="760" height="500" rx="10" />
+
+  <!-- VM column -->
+  <rect class="card" x="40" y="30" width="320" height="270" rx="8" />
+  <text class="text title" x="60" y="58">Virtual Machine</text>
+  <text class="text-bad small" x="60" y="78">heavy · slow · gigabytes</text>
+
+  <rect class="heavy" x="60" y="92" width="280" height="32" rx="6" />
+  <text class="text body" x="74" y="113">App</text>
+  <rect class="heavy" x="60" y="128" width="280" height="32" rx="6" />
+  <text class="text body" x="74" y="149">Bins / Libs</text>
+  <rect class="heavy" x="60" y="164" width="280" height="44" rx="6" />
+  <text class="text body" x="74" y="184">Guest OS</text>
+  <text class="text-mute small" x="74" y="200">(entire OS, per VM)</text>
+  <rect class="heavy" x="60" y="212" width="280" height="32" rx="6" />
+  <text class="text body" x="74" y="233">Hypervisor</text>
+  <rect class="heavy" x="60" y="248" width="280" height="32" rx="6" />
+  <text class="text body" x="74" y="269">Host hardware / OS</text>
+
+  <!-- Container column -->
+  <rect class="card" x="400" y="30" width="320" height="270" rx="8" />
+  <text class="text title" x="420" y="58">Container (Docker)</text>
+  <text class="text-ok small" x="420" y="78">light · seconds to start · megabytes</text>
+
+  <rect class="app" x="420" y="92" width="280" height="32" rx="6" />
+  <text class="text body" x="434" y="113">App</text>
+  <rect class="light" x="420" y="128" width="280" height="32" rx="6" />
+  <text class="text body" x="434" y="149">Bins / Libs</text>
+  <rect class="light" x="420" y="164" width="280" height="32" rx="6" />
+  <text class="text body" x="434" y="184">Container runtime (Docker)</text>
+  <rect class="light" x="420" y="200" width="280" height="44" rx="6" />
+  <text class="text body" x="434" y="220">Host OS kernel</text>
+  <text class="text-mute small" x="434" y="236">(shared — no guest OS)</text>
+  <rect class="light" x="420" y="248" width="280" height="32" rx="6" />
+  <text class="text body" x="434" y="269">Host hardware</text>
+
+  <!-- Devcontainer flow -->
+  <text class="text title" x="380" y="340" text-anchor="middle">The devcontainer flow</text>
+
+  <rect class="layer" x="40" y="358" width="160" height="56" rx="8" />
+  <text class="text-mute header" x="120" y="378" text-anchor="middle">STEP 1</text>
+  <text class="accent mono body" x="120" y="400" text-anchor="middle">git clone …</text>
+
+  <text class="text-dim title" x="216" y="394" text-anchor="middle">→</text>
+
+  <rect class="layer" x="232" y="358" width="160" height="56" rx="8" />
+  <text class="text-mute header" x="312" y="378" text-anchor="middle">STEP 2</text>
+  <text class="accent mono body" x="312" y="400" text-anchor="middle">code .</text>
+
+  <text class="text-dim title" x="408" y="394" text-anchor="middle">→</text>
+
+  <rect class="layer" x="424" y="358" width="160" height="56" rx="8" />
+  <text class="text-mute header" x="504" y="378" text-anchor="middle">STEP 3</text>
+  <text class="text body" x="504" y="400" text-anchor="middle">Reopen in Container</text>
+
+  <text class="text-dim title" x="600" y="394" text-anchor="middle">→</text>
+
+  <rect class="layer" x="616" y="358" width="104" height="56" rx="8" />
+  <text class="text-mute header" x="668" y="378" text-anchor="middle">RESULT</text>
+  <text class="text-ok body" x="668" y="400" text-anchor="middle">ready</text>
+
+  <text class="text-dim small" x="380" y="450" text-anchor="middle">
+    Same .devcontainer/devcontainer.json → same env on every teammate's laptop.
+  </text>
+  <text class="text-mute small" x="380" y="470" text-anchor="middle">
+    No "install these 14 things first."
+  </text>
+</svg>
