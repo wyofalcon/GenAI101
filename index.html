@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GenAI101 — Build with AI</title>
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=3" />
 </head>
 <body>
   <header class="topbar">
@@ -37,8 +37,12 @@
         Pass the test in time and those modules skip automatically.
       </p>
       <p class="lede small">
-        Pop your name in below and we'll get you started. Your progress saves locally on
-        this device — when you finish (or hit a checkpoint), use <strong>Export progress</strong>
+        Pop your name in below and we'll get you started. <strong>Don't have to finish in one
+        sitting</strong> — close the tab and come back later and you'll land right where you
+        left off (passed modules stay passed, skipped tests stay skipped). A couple of catches:
+        progress saves to <em>this browser on this device</em>, so switching laptops or using
+        private/incognito means starting over, and closing the tab mid-quiz loses that attempt
+        (it only records on submit). When you finish, hit <strong>Export progress</strong>
         at the top right to send a report to Nolan.
       </p>
       <form id="signup-form" class="signup">
@@ -163,11 +167,13 @@
     </section>
   </template>
 
-  <script src="assets/js/curriculum.js"></script>
-  <script src="assets/js/lessons.js"></script>
-  <script src="assets/js/progress.js"></script>
-  <script src="assets/js/markdown.js"></script>
-  <script src="assets/js/quiz-engine.js"></script>
-  <script src="assets/js/app.js"></script>
+  <!-- Bump the ?v= query when you ship lesson/curriculum/code changes so returning
+       learners get the new build instead of a stale cached copy. -->
+  <script src="assets/js/curriculum.js?v=3"></script>
+  <script src="assets/js/lessons.js?v=3"></script>
+  <script src="assets/js/progress.js?v=3"></script>
+  <script src="assets/js/markdown.js?v=3"></script>
+  <script src="assets/js/quiz-engine.js?v=3"></script>
+  <script src="assets/js/app.js?v=3"></script>
 </body>
 </html>

@@ -6,9 +6,11 @@ A short, friendly crash course on the very basics of building with AI as a co-de
 
 ## What this is
 
-A self-contained static web app. 10 modules, each with a lesson, a hands-on lab/exercise, and a quiz. 3 bundled tests at the top let you skip the modules they cover (if you pass in the time limit). One **final challenge** test unlocks at the end and is more cross-cutting.
+A self-contained static web app. 11 modules, each with a lesson, a hands-on lab/exercise, and a quiz. 3 bundled tests at the top let you skip the modules they cover (if you pass in the time limit). One **final challenge** test unlocks at the end and is more cross-cutting.
 
-Most lessons (Modules 2–5 and 8) have an inline **setup checklist** — you can't take the quiz (or the test that covers them) until you've ticked off the installs. Honor system, but it's in the learner's exported progress.
+Most lessons (Modules 2–5, 8, and 11) have an inline **setup checklist** — you can't take the quiz (or the test that covers them) until you've ticked off the installs. Honor system, but it's in the learner's exported progress.
+
+Module 11 (**Collaborative git flow**) is deliberately the heaviest — scenario-based quiz, harder than the rest. The collaborative loop is the muscle you'll use every day on every project, including with Claude as a teammate, so it gets drilled.
 
 - No build step, no `npm install`, no backend.
 - All progress lives in the learner's browser (`localStorage`) — so it stays on their device.
@@ -83,6 +85,14 @@ git commit -m "Tweak module 6"
 git push
 ```
 
+> **If you add a new module or change a lesson, also bump the `?v=` query strings in `index.html`** (on the stylesheet and the six script tags). Bookmarked learners' browsers will otherwise serve them stale cached copies of the JS/CSS. Bumping the version forces a fresh fetch on their next visit. Their progress (in `localStorage`) is preserved across version bumps — new modules just appear in their dashboard, and the previously-completed ones stay completed.
+
+If you've also edited any lesson markdown, re-run the build step so the rendered HTML in `assets/js/lessons.js` matches:
+
+```bash
+node scripts/build-lessons.js
+```
+
 ### Custom domain (optional)
 
 If you have a domain you want to point at it, add a `CNAME` file with just your domain in it (e.g. `learn.yourdomain.com`) and configure the DNS A records GitHub Pages shows you. The docs walk you through it: <https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site>.
@@ -148,7 +158,8 @@ GenAI101/
 │   ├── 07-how-nolan-builds.md
 │   ├── 08-mcps-and-addons.md
 │   ├── 09-using-ai-well.md
-│   └── 10-build-your-first-tool.md
+│   ├── 10-build-your-first-tool.md
+│   └── 11-collaborative-git.md     (in-depth, scenario-based quiz)
 ├── tracker/
 │   └── view_progress.py      # your instructor dashboard
 ├── .devcontainer/

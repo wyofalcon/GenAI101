@@ -657,6 +657,169 @@ const MODULES = [
         why: "Clear thinking + tight loops with Claude + actually shipping. That's the whole game."
       }
     ]
+  },
+
+  {
+    id: "m11-collaborative-git",
+    title: "Collaborative git flow",
+    blurb: "Branch, commit, push, PR, review, merge — the loop every team (including a team of you + Claude) actually ships with.",
+    lesson: "lessons/11-collaborative-git.md",
+    setup: {
+      title: "Setup checkpoint — git & GitHub",
+      intro: "You can't practice the collaborative loop without the tools. Get git installed, GitHub linked, and your identity configured before the quiz. None of this is hard — but skipping it now means you can't actually run the lab, and the quiz is scenario-based, so you'll feel it.",
+      items: [
+        { id: "git-installed",
+          label: "git is installed (`git --version` prints a version in WSL)",
+          hint: "Most WSL Ubuntus already have it: `sudo apt update && sudo apt install -y git` if not. Confirm with `git --version`." },
+        { id: "github-account",
+          label: "I have a GitHub account I can log into in the browser",
+          hint: "Free at github.com. Use a real email — it links your commits to your profile." },
+        { id: "git-identity",
+          label: "I've configured `user.name` and `user.email` in git",
+          hint: "Run `git config --global user.name \"Your Name\"` and `git config --global user.email \"you@example.com\"`. Use the email tied to your GitHub account so commits attribute to you." },
+        { id: "github-auth",
+          label: "I can push to GitHub from WSL (HTTPS token or SSH key set up)",
+          hint: "Simplest path: install the GitHub CLI (`sudo apt install gh`) and run `gh auth login` — it handles auth for both git and the API. Confirm by cloning any private repo of yours, or by pushing a test branch." },
+        { id: "branch-pr-pledge",
+          label: "I understand the rule: **never commit directly to main — always branch + PR**, even solo",
+          hint: "The whole lesson hangs on this. Check it once you've internalized why (review history, CI, deployability, cheap rollback)." }
+      ]
+    },
+    quiz: [
+      {
+        type: "single",
+        q: "You're about to start a small feature. Your team uses a main + feature-branch flow. What's the right FIRST move?",
+        choices: [
+          "Edit on `main` directly — branching is overkill for a small change.",
+          "`git pull` on `main` to sync, then `git checkout -b feat/...` to branch off the fresh main, then start editing.",
+          "Make the edits first, decide whether to branch when you're ready to commit.",
+          "Force-push your previous branch so it's clean before you start."
+        ],
+        answer: 1,
+        why: "Always pull main first (so you branch off an up-to-date base), THEN cut a new branch, THEN start editing. The branch isolates the work for review and keeps main deployable. Small changes are not an exception to the rule — they're the easiest place to practice it."
+      },
+      {
+        type: "single",
+        q: "You ran `git add .` and committed. The commit includes a `.env` file with a real API key. You haven't pushed yet. Safest fix?",
+        choices: [
+          "Push it, then ask the team to ignore it — it's not a big deal.",
+          "Delete the .env file from disk and make a new commit.",
+          "Roll back the commit, add `.env` to `.gitignore`, recommit only the intended files — AND rotate the API key, because it touched a commit even if it never pushed.",
+          "Force-push to main to overwrite the bad commit."
+        ],
+        answer: 2,
+        why: "Removing the file from a future commit is not enough — once a secret has been written to a commit (even local), treat it as compromised and rotate. Then prevent recurrence with `.gitignore`. Convenience commands like `git add .` are exactly how this happens; stage by name while you're learning."
+      },
+      {
+        type: "single",
+        q: "A teammate pushed two commits to `main` while you were working on `feat/new-filter`. You want those changes in your branch BEFORE opening a PR. The safest, most-common move is to:",
+        choices: [
+          "Force-push your branch over main.",
+          "`git checkout main && git pull`, then back on your feature branch run `git merge main` (or `git rebase main` if your team prefers a linear history) — fix conflicts, push.",
+          "Delete your branch and start over from a fresh main.",
+          "Open the PR anyway and let GitHub handle it later."
+        ],
+        answer: 1,
+        why: "Bring main's new commits into your branch by merging or rebasing — whichever your team uses. Force-pushing over main is a cardinal sin. Deleting your work is wasteful. Opening the PR without integrating means a messier conflict review later."
+      },
+      {
+        type: "single",
+        q: "Claude just modified 8 files. Two of them are unrelated debug experiments you don't want in this commit. Best move?",
+        choices: [
+          "Commit all 8 and revert the unrelated 2 in a follow-up commit.",
+          "Use `git restore` (or stash) on the 2 files, then `git add` only the 6 you want, then commit. Keep the commit focused on one logical change.",
+          "Force-push to drop the unwanted files.",
+          "Delete the 2 files entirely so they can't be committed."
+        ],
+        answer: 1,
+        why: "Stage deliberately. The whole point of `git add <file>` is that you can commit a subset of your working changes. Mixed-purpose commits are unreviewable; small focused commits are the whole game."
+      },
+      {
+        type: "single",
+        q: "Your PR is open. CI fails because of one typo. What's the right move?",
+        choices: [
+          "Close the PR and open a new one with the fix.",
+          "Force-push a clean history that hides the typo ever happened.",
+          "Fix the typo locally, commit, push to the same branch — the PR updates automatically and CI re-runs.",
+          "Ask the reviewer to fix it for you."
+        ],
+        answer: 2,
+        why: "A PR is just a view onto a branch. Pushing more commits to that branch updates the PR in place. That's why PRs are great for tight feedback loops."
+      },
+      {
+        type: "tf",
+        q: "If Claude wrote the code and your tests pass, it's safe to merge without reading the diff.",
+        answer: false,
+        why: "Tests check **behavior** for the cases you thought of. Reading the diff checks **intent** — and catches secrets, scope creep, surprise refactors, and the subtle bug your tests don't cover. Read every diff. Especially Claude's."
+      },
+      {
+        type: "single",
+        q: "After `git pull`, a file shows merge-conflict markers `<<<<<<<`, `=======`, `>>>>>>>`. What's actually going on?",
+        choices: [
+          "Git is broken — re-clone the repo.",
+          "Git is asking you a question: 'two branches changed the same lines; which version do you want?' You edit the file to the correct final state, delete the markers, `git add` it, then continue the merge/commit.",
+          "Run `git pull --force` to make the markers go away.",
+          "Delete the file and let the other side win."
+        ],
+        answer: 1,
+        why: "Conflict markers are a question, not an error. Only a human (often with Claude's help on intent) can answer correctly. Edit to the desired final content, delete the marker lines, stage, and finish the merge/rebase."
+      },
+      {
+        type: "single",
+        q: "Which is the BEST commit message for a change that adds a date filter to the dashboard?",
+        choices: [
+          "\"stuff\"",
+          "\"WIP\"",
+          "\"Add date filter to dashboard top bar (default off, persists in localStorage)\"",
+          "\"Added a date filter to the dashboard top bar that defaults to off and persists in localStorage and also fixes some unrelated CSS spacing and renames a variable\""
+        ],
+        answer: 2,
+        why: "Imperative mood, short and specific, scoped to one logical change. 'stuff' and 'WIP' say nothing; the long one bundles unrelated changes (those should be separate commits)."
+      },
+      {
+        type: "multi",
+        q: "Which of these are SAFE for Claude to do unsupervised in a git workflow? (pick all that apply)",
+        choices: [
+          "Stage files and draft a commit message for what you have changed.",
+          "Open a PR with a generated 'what / why / how to verify' description.",
+          "Force-push to `main` to 'clean things up'.",
+          "Merge its own PR without your review.",
+          "Run `git status`, `git diff`, `git log` to investigate what's going on."
+        ],
+        answer: [0, 1, 4],
+        why: "Claude is great at typing the routine git commands and drafting messages/PR descriptions. Force-pushing main, and self-merging, are the lines you don't let any teammate cross — including Claude. You press the merge button."
+      },
+      {
+        type: "tf",
+        q: "A pull request doesn't change `main` until it's merged — opening one is just a proposal.",
+        answer: true,
+        why: "Until merge, your changes live only on your branch. The PR is the review/discussion/CI surface. Merging is the action that actually moves the commits onto main."
+      },
+      {
+        type: "single",
+        q: "Your PR is 60 files, 1,800 lines, touching auth, billing, and the dashboard. The reviewer says 'LGTM' in 90 seconds. What's the real problem?",
+        choices: [
+          "Nothing — fast review is good review.",
+          "The PR is too big to be meaningfully reviewed. Split it into focused PRs (one per concern) so reviewers can actually read the diff. Speed of review isn't the same as quality of review.",
+          "The reviewer should have been slower.",
+          "Add more reviewers."
+        ],
+        answer: 1,
+        why: "Giant PRs get rubber-stamped. That's how bugs ship. Small, focused PRs are the cure — they get real reviews because they CAN be really reviewed."
+      },
+      {
+        type: "single",
+        q: "You realize you've been making commits on `main` for the last hour. You haven't pushed yet. What's the cleanest fix?",
+        choices: [
+          "Push to main anyway — nobody will notice.",
+          "Create a new branch from your current state (`git checkout -b feat/recover`) so the work is captured, then move `main` back to the remote with `git reset --hard origin/main` so main is clean again. Push the feature branch and open a PR.",
+          "Delete the repo and re-clone.",
+          "Squash everything into one commit and call it a day."
+        ],
+        answer: 1,
+        why: "Branch from where you are (capturing the work), then reset main back to the remote so main is no longer dirty. From the new branch, push and open a PR. Recovers cleanly with no force-push, no lost work."
+      }
+    ]
   }
 ];
 
@@ -735,10 +898,10 @@ const TESTS = [
 
   {
     id: "test-3-building",
-    title: "Test 3 — How we build",
-    blurb: "Covers Modules 7–10 (workflow, MCPs/addons, using AI well, build your first tool). Pass in under 12 minutes to skip them.",
-    covers: ["m07-how-nolan-builds", "m08-mcps-and-addons", "m09-using-ai-well", "m10-build-your-first-tool"],
-    timeLimitSec: 12 * 60,
+    title: "Test 3 — How we build & ship",
+    blurb: "Covers Modules 7–11 (workflow, MCPs/addons, using AI well, build your first tool, collaborative git). Pass in under 16 minutes to skip them. Harder than the earlier tests — the git questions are scenario-based.",
+    covers: ["m07-how-nolan-builds", "m08-mcps-and-addons", "m09-using-ai-well", "m10-build-your-first-tool", "m11-collaborative-git"],
+    timeLimitSec: 16 * 60,
     questions: [
       { type: "single", q: "Before writing code for a new feature, what comes first?",
         choices: ["Start typing as fast as possible","Get clear on what you're building and why","Open six tabs","Pick a color scheme"],
@@ -771,6 +934,50 @@ const TESTS = [
       { type: "tf", q: "Asking Claude to scaffold v1 of your tool is fine — as long as you read what it produces.", answer: true },
       { type: "single", q: "The single biggest habit to take from this curriculum:",
         choices: ["Memorize Python syntax","Think clearly + partner tightly with Claude + small steps + ship","Avoid questions","Always work alone"],
+        answer: 1 },
+
+      // --- collaborative git scenarios ---
+      { type: "single", q: "Starting a new feature on a repo your team works in. The correct FIRST sequence is:",
+        choices: [
+          "Edit on main, commit, push, hope for the best.",
+          "`git pull` on main → `git checkout -b feat/...` → start editing on the new branch.",
+          "`git checkout -b feat/...` first, then `git pull` from inside the new branch.",
+          "Force-push your last branch so the slate is clean, then edit on main."
+        ],
+        answer: 1 },
+      { type: "single", q: "You realized your last commit (not yet pushed) accidentally included a `.env` file with a real API key. Safest fix?",
+        choices: [
+          "Push it anyway and email the team to ignore.",
+          "Delete the .env file from disk and make a new commit on top.",
+          "Roll back the commit, add `.env` to `.gitignore`, recommit only the intended files — AND rotate the API key, because the secret touched a commit.",
+          "Use `git rm --cached .env` and call it done."
+        ],
+        answer: 2 },
+      { type: "single", q: "Your PR's CI fails on a typo. What's the right move?",
+        choices: [
+          "Close the PR and open a new one with the fix.",
+          "Force-push a clean history that hides the typo.",
+          "Fix the typo locally, commit, push to the SAME branch — the PR updates and CI re-runs.",
+          "Ask the reviewer to fix it."
+        ],
+        answer: 2 },
+      { type: "tf", q: "A pull request doesn't change `main` until it's merged — opening one is just a proposal.", answer: true },
+      { type: "multi", q: "Which of these are SAFE for Claude to do unsupervised in your git workflow? (pick all that apply)",
+        choices: [
+          "Stage files and draft a commit message for the staged changes.",
+          "Open a PR with a generated 'what / why / how to verify' description.",
+          "Force-push to `main` to clean things up.",
+          "Merge its own PR without your review.",
+          "Run `git status`, `git diff`, `git log` to investigate what's going on."
+        ],
+        answer: [0,1,4] },
+      { type: "single", q: "After `git pull`, a file shows `<<<<<<<` / `=======` / `>>>>>>>` markers. What's actually happening?",
+        choices: [
+          "Git is broken — re-clone the repo.",
+          "Git is asking you a question: 'two branches changed the same lines, which version wins?' — you edit to the right final content, delete the markers, `git add`, then finish the merge/commit.",
+          "Run `git pull --force` to make the markers disappear.",
+          "Delete the file and let the other side's version win."
+        ],
         answer: 1 }
     ]
   },
@@ -849,6 +1056,32 @@ const TESTS = [
         answer: 1 },
       { type: "tf", q: "WSL files in `~` and Windows files in `/mnt/c` are interchangeable — performance and tool behavior are the same.",
         answer: false },
+      { type: "single", q: "You're working solo on your own GitHub repo. You're the only contributor. Do you still need to branch + open a PR for changes, or can you just commit to `main`?",
+        choices: [
+          "Just commit to main — branching is overhead with no benefit when you're alone.",
+          "Still branch + PR. The PR is for you: it's where you read the diff one last time, let CI run, and merge deliberately. The discipline pays off the moment a second contributor shows up — or the moment future-you needs to roll back a change cleanly.",
+          "Only branch for changes over 100 lines.",
+          "Only branch when Claude wrote the code."
+        ],
+        answer: 1 },
+      { type: "single", q: "Claude just modified 9 files for the feature you asked for, plus 2 unrelated experiments. You want only the 9 in this commit. The right move is:",
+        choices: [
+          "Commit all 11 and revert the unrelated 2 in a follow-up commit.",
+          "Use `git restore` (or stash) on the 2 unrelated files, then `git add` only the 9 intentional ones, then commit. Keep commits focused on one logical change.",
+          "Force-push to drop the unwanted files.",
+          "Delete the 2 unrelated files entirely."
+        ],
+        answer: 1 },
+      { type: "tf", q: "If a secret (API key, password, `.env`) is committed to git — even just locally, before any push — you should rotate it.",
+        answer: true },
+      { type: "single", q: "Your feature PR has been open for two days. `main` got 3 new commits from a teammate. Best move BEFORE merging your PR?",
+        choices: [
+          "Just merge — GitHub will sort it out.",
+          "Bring main's new commits into your branch (merge or rebase), re-run CI locally, push, then merge once green. Don't merge stale branches into main.",
+          "Force-push main to your branch.",
+          "Delete your branch and start over."
+        ],
+        answer: 1 },
       { type: "single", q: "What's the single most important thing this curriculum is trying to leave you with?",
         choices: [
           "An encyclopedic memory of Python syntax.",

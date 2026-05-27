@@ -78,27 +78,25 @@ function showDashboard() {
 
   const list = $("#module-list");
   MODULES.forEach((m, i) => {
-    const st = progress.modules[m.id] || { unlocked: i === 0 };
+    const st = progress.modules[m.id] || {};
     const done = st.passed || progress.skipped.includes(m.id);
     const li = document.createElement("li");
-    li.className = done ? "done" : (st.unlocked ? "" : "locked");
+    if (done) li.className = "done";
 
     const num = document.createElement("div"); num.className = "num"; num.textContent = i + 1;
     const meta = document.createElement("div"); meta.className = "meta";
     meta.innerHTML = `<h3>${m.title}</h3><p>${m.blurb}</p>`;
     const status = document.createElement("div"); status.className = "status";
     if (done) status.innerHTML = `<span class="pct">${Math.round((st.bestScore||0)*100)}%</span> · ${progress.skipped.includes(m.id) ? "skipped via test" : "passed"}`;
-    else if (st.unlocked) status.innerHTML = st.attempts && st.attempts.length ? `Best ${Math.round((st.bestScore||0)*100)}%` : "Not started";
-    else status.textContent = "Locked";
+    else status.innerHTML = st.attempts && st.attempts.length ? `Best ${Math.round((st.bestScore||0)*100)}%` : "Not started";
 
     const actions = document.createElement("div"); actions.className = "actions";
-    if (st.unlocked || done) {
-      const lbtn = document.createElement("button");
-      lbtn.className = "btn";
-      lbtn.textContent = done ? "Review" : "Start";
-      lbtn.addEventListener("click", () => showLesson(m.id));
-      actions.appendChild(lbtn);
-    }
+    const lbtn = document.createElement("button");
+    lbtn.className = "btn";
+    lbtn.textContent = done ? "Review" : "Start";
+    lbtn.addEventListener("click", () => showLesson(m.id));
+    actions.appendChild(lbtn);
+
     li.append(num, meta, status, actions);
     list.appendChild(li);
   });

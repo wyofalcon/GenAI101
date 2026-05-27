@@ -62,7 +62,7 @@ function endSession(p) {
 /* ---------- module/test state helpers ---------- */
 function ensureModuleState(p, mid) {
   if (!p.modules[mid]) {
-    p.modules[mid] = { unlocked: false, passed: false, bestScore: 0, attempts: [] };
+    p.modules[mid] = { unlocked: true, passed: false, bestScore: 0, attempts: [] };
   }
   return p.modules[mid];
 }
@@ -74,19 +74,8 @@ function ensureTestState(p, tid) {
 }
 
 function recomputeUnlocks(p) {
-  // First module always unlocked.
-  // Each next module unlocked when the previous is passed OR has been skipped.
-  for (let i = 0; i < MODULES.length; i++) {
-    const m = MODULES[i];
-    const st = ensureModuleState(p, m.id);
-    if (i === 0) { st.unlocked = true; continue; }
-    const prev = MODULES[i - 1];
-    const prevSt = ensureModuleState(p, prev.id);
-    const prevDone = prevSt.passed || p.skipped.includes(prev.id);
-    if (prevDone) st.unlocked = true;
-  }
-  // Modules skipped via test are also "unlocked" (so user can browse them later).
-  for (const mid of p.skipped) ensureModuleState(p, mid).unlocked = true;
+  // All modules are always available — learners can tackle them in any order.
+  for (const m of MODULES) ensureModuleState(p, m.id).unlocked = true;
 }
 
 function recordQuizAttempt(p, moduleId, result) {
