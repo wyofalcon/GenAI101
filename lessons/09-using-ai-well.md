@@ -158,6 +158,35 @@ In a sticky note (real or digital), write these four lines. Look at them before 
 
 That's the whole lesson, in 4 lines, on a sticky note. Most of the value of this curriculum sits inside those four habits.
 
+## Portfolio track
+
+Drop a `CLAUDE.md` at the root of `my-tools` so every future Claude session knows the project. From inside the repo:
+
+```bash
+cd ~/projects/my-tools
+claude
+```
+
+Then in Claude Code:
+
+```
+/init
+```
+
+Edit the draft so it actually covers:
+
+- **What it is.** "A static portfolio of tiny tools I built for myself, served via GitHub Pages."
+- **Stack.** "Plain HTML + a single `build.py` script that regenerates the card grid from `tools/*.md`."
+- **Convention.** "Each tool gets one `tools/<slug>.md` with `name:`, `description:`, `url:` front-matter."
+- **Commands.** "`python3 build.py` regenerates `index.html`. `python3 -m http.server 8000` previews locally."
+- **What to avoid.** "Don't edit the `<div id=\"tools\">` block in `index.html` by hand — re-run `build.py`."
+
+Save. Now also save a slash command — call it `/new-tool` — whose prompt is:
+
+> *"I just finished a tool in another repo. Read that repo's README, then create a `tools/<slug>.md` here with the right front-matter, run `python3 build.py`, and stage the changes on a new branch called `feat/add-<slug>`."*
+
+That single command turns "I built a thing" into "card on the site" without you typing the steps.
+
 ## What to take away
 
 - **AI is your search engine now.** Ask Claude before you ask Google.

@@ -67,6 +67,14 @@ You'll need an AI helper — Claude, Gemini, ChatGPT, or Copilot — open in a b
 
 That's it. You've now done a real "AI as search engine" loop on a topic from this lesson — and seen what categories the four-bucket model actually maps onto in the wild.
 
+## Portfolio track: meet `my-tools`
+
+There's a running side project that grows alongside this curriculum. By the end of Module 11, you'll have a small public site — `<your-username>.github.io/my-tools/` — with one real tool you built on it, and the muscle to keep adding to it forever.
+
+Each module adds one small piece. Today, you don't add anything — you just know it's coming. The point: every install, every command, every habit in the next ten lessons lands on a real artifact you can point friends, recruiters, and future-you at.
+
+Keep an eye out for the **Portfolio track** section at the end of each lesson — that's where you add the next piece.
+
 ## What to take away
 
 - Computers do exactly what you tell them, no more, no less.

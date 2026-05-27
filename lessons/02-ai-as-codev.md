@@ -127,6 +127,16 @@ Pin the tab. Add the app to your taskbar. Put it on your phone. Friction kills h
 
 > A reminder that bears repeating: the helper you picked is for **everyday browser/document work.** When we get to coding, we'll install **Claude Code** in your terminal as the dev-side co-developer. It's normal to use two different AIs for two different jobs.
 
+## Portfolio track
+
+You just picked an everyday helper. Use it once, right now, on the side project.
+
+Open the helper and paste:
+
+> *"I'm going to build a small public site called `my-tools` — a portfolio of tiny tools I build for myself. As I go through a 1–2 hour intro course, I'll add one tool at a time. Help me draft a single-sentence pitch for it, in plain English, no marketing voice."*
+
+Save the answer to a scratch note. You'll drop it onto the live site in Module 4.
+
 ## What to take away
 
 - AI is your co-developer — not a chat toy and not a magic button.

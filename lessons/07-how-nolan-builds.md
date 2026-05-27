@@ -100,6 +100,21 @@ Run it again. Done.
 
 You just did: **think → prompt → run → look → correct → repeat.** That's the entire workflow this curriculum is built around. Everything else is decoration.
 
+## Portfolio track
+
+You now have a working `my-tools` site. Apply the loop to *itself.*
+
+Use the site for two minutes. Resize the browser. Click the placeholder card. Look at the source. Notice everything that annoys you — even tiny things. Then create `FRICTION.md` at the root of the repo and write one line per annoyance. Don't fix anything yet.
+
+A starter list to react to (yours will look different):
+
+- Cards look like raw links — no styling at all.
+- No way to tell which tools are new vs old.
+- I have to remember to run `build.py` by hand.
+- The page title still says "My Tools" verbatim — could be my actual name.
+
+Pick **one** for next session. The smallest, most painful one. That's the loop, applied to the very thing you're building it on.
+
 ## What to take away
 
 The loop, named explicitly:

@@ -333,6 +333,27 @@ This is the move that flips merge conflicts from "scary" to "routine."
 
 Conflicts will never spook you again.
 
+## Portfolio track
+
+You have a branch on `my-tools` with your first tool card. Run the full loop on it.
+
+1. `git push -u origin feat/add-<your-tool-slug>`
+2. Open the PR on GitHub. Write a real **What / Why / How to verify** body.
+3. Self-review: open the **Files changed** tab. Read every line.
+4. `claude` → `/review`. Address what's worth addressing, push fixes.
+5. **Squash and merge.** Watch GitHub Pages redeploy. Refresh the live URL — your card is there.
+6. `git checkout main && git pull && git branch -d feat/add-<your-tool-slug>`.
+
+**Bonus — pair up.** Find one other learner. Add each other as collaborators on your `my-tools` repos. Each of you opens a PR adding a typo fix or a small style tweak on the *other's* site. Review. Merge. That's the full collaborative loop, on a real artifact, with a real teammate.
+
+You now have:
+
+- A public site at `https://<your-username>.github.io/my-tools/`.
+- At least one real tool card on it.
+- The build loop *and* the git loop, both rehearsed on the same artifact.
+
+Every tool you build for yourself from here on lands here, one PR at a time. The site grows with you.
+
 ## What to take away
 
 - **Git is the collaboration protocol**, not just a backup tool. Even solo, even with Claude as the only teammate, you use it the same way.

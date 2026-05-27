@@ -194,6 +194,56 @@ Now ask:
 
 Read what comes back. Look at every line. Does it match what you'd write? If yes, paste it in and run it. If no, push back: *"Why did you do X instead of Y?"* That's the loop you'll be running constantly from now on.
 
+## Portfolio track
+
+Your portfolio is going to have cards — one per tool you build. Hand-editing `index.html` every time is the kind of friction we automate away. Write your first useful Python script: a tiny builder.
+
+In `~/projects/my-tools/`, make a `tools/` folder and drop a sample card in it:
+
+```bash
+mkdir -p tools
+```
+
+Save `tools/example.md`:
+
+```
+---
+name: Example tool
+description: A placeholder card. Replace me when you build Module 10.
+url: https://example.com
+---
+```
+
+Now create `build.py` next to `index.html`:
+
+```python
+import os, re
+
+CARDS = []
+for fn in sorted(os.listdir("tools")):
+    if not fn.endswith(".md"):
+        continue
+    text = open(f"tools/{fn}").read()
+    meta = dict(re.findall(r"^(\w+):\s*(.+)$", text, re.M))
+    CARDS.append(
+        f'<a class="card" href="{meta["url"]}">'
+        f'<h2>{meta["name"]}</h2><p>{meta["description"]}</p></a>'
+    )
+
+html = open("index.html").read()
+html = re.sub(
+    r'<div id="tools">.*?</div>',
+    f'<div id="tools">{"".join(CARDS)}</div>',
+    html, flags=re.S,
+)
+open("index.html", "w").write(html)
+print(f"Wrote {len(CARDS)} cards.")
+```
+
+Run `python3 build.py`. Refresh the site. Your placeholder card appears. Every future tool you add is just a new `tools/*.md` and a re-run of `build.py`.
+
+**Read every line before you commit it.** If anything is unclear, ask Claude to walk you through it. That's the muscle.
+
 ## What to take away
 
 - Python is readable, dominant in AI, and the default for our stack.

@@ -138,6 +138,25 @@ You started this lesson with a chatbot in a tab. You're ending it with an AI tha
 
 Every lever you added is a thing the AI can now do that it couldn't 15 minutes ago. Add more as friction tells you to.
 
+## Portfolio track
+
+You wired up the GitHub MCP. Use it to put `my-tools` on the internet.
+
+```bash
+cd ~/projects/my-tools
+git init
+git add .
+git commit -m "Initial my-tools site"
+```
+
+Then in Claude Code:
+
+```
+> Use the GitHub MCP to create a new public repo called `my-tools` under my account, push this local repo to it, and turn on GitHub Pages on the main branch.
+```
+
+Read what Claude proposes before approving each step. Within a minute your site is live at `https://<your-username>.github.io/my-tools/`. Share the URL with one person. Real public artifact, real audience of at least one.
+
 ## What to take away
 
 The four levers:

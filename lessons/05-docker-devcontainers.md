@@ -123,6 +123,27 @@ Bottom-left status bar → click the green container indicator → "Reopen Folde
 
 Inside the container terminal, do something dramatic: `rm -rf /workspaces/GenAI101/lessons` (don't actually run this on your real folder unless you want to test the rebuild!). Then rebuild the container (`Ctrl+Shift+P` → "Dev Containers: Rebuild Container"). The lessons come back, because the lessons live in your WSL folder and the container just mounts them. The *environment* is the container; your *code* is your folder. Knowing that split is the actual lesson.
 
+## Portfolio track
+
+Give `my-tools` its own devcontainer so it runs the same on every machine — yours, a friend's, a fresh laptop next year.
+
+```bash
+cd ~/projects/my-tools
+mkdir -p .devcontainer
+```
+
+Create `.devcontainer/devcontainer.json`:
+
+```json
+{
+  "name": "my-tools",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "forwardPorts": [8000]
+}
+```
+
+`Ctrl+Shift+P` → **Dev Containers: Reopen in Container**. After it builds, open the integrated terminal and run `python3 -m http.server 8000`. VSCode auto-forwards the port and you see the same site as before — but now anyone who clones this repo gets the same environment, no setup instructions needed.
+
 ## What to take away
 
 - Containers solve "works on my machine" by packaging the whole environment, not just the code.

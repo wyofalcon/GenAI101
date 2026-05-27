@@ -113,6 +113,27 @@ Next session, pick the single most painful friction. Have Claude fix just that. 
 
 That's the loop that turns a v0 toy into a real tool. Use it weekly, on the same tool, for a month. By the end you'll have something that's actually useful — and a feel for how every project on Nolan's portfolio got built.
 
+## Portfolio track
+
+You just built v0 of a real tool. Now ship the card.
+
+In your `my-tools` repo:
+
+```bash
+cd ~/projects/my-tools
+git checkout -b feat/add-<your-tool-slug>
+```
+
+Either write the card by hand — a new `tools/<your-tool-slug>.md` with `name:`, `description:`, `url:` front-matter — or in Claude Code:
+
+```
+/new-tool
+```
+
+(That's the slash command you saved in Module 9.) Either way, you should end up with a fresh `tools/<your-tool-slug>.md`, a regenerated `index.html`, and a branch ready to push.
+
+Don't merge to main yet. We'll do that, properly, in the next lesson.
+
 ## What to take away
 
 - Small, useful-to-you, end-to-end in an afternoon. Those are the rules.

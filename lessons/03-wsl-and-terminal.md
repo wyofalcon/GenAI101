@@ -178,6 +178,21 @@ rm -r projects/hello-terminal
 
 If anything went sideways — a command did nothing, an error message you didn't expect — copy/paste the exact output to Claude and ask "what does this mean?" That's the workflow from here on.
 
+## Portfolio track
+
+Now that you can navigate WSL, create the folder your portfolio site will live in:
+
+```bash
+cd ~
+mkdir -p projects/my-tools
+cd projects/my-tools
+echo "# my-tools" > README.md
+ls
+cat README.md
+```
+
+That's it for today. An empty folder with a README. We'll turn it into a real page in the next lesson.
+
 ## What to take away
 
 - WSL gives you a real Linux environment on Windows. No dual-boot, no VM hassle.

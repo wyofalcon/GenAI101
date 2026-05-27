@@ -90,6 +90,40 @@ Open your everyday helper (the one you picked in [Module 2](lessons/02-ai-as-cod
 
 Try the ones it gives you. (Hint: `Ctrl+P` is the one Nolan uses most.)
 
+## Portfolio track
+
+You've got an editor connected to WSL. Time to put the first page on the site.
+
+```bash
+cd ~/projects/my-tools
+code .
+```
+
+In VSCode, create `index.html` with the bare bones:
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>My Tools</title>
+</head>
+<body>
+  <h1>My Tools</h1>
+  <p>Small tools I built for myself.</p>
+  <div id="tools"></div>
+</body>
+</html>
+```
+
+Drop the tagline you got from your AI helper in Module 2 into the `<p>` if you like it. Then serve the folder:
+
+```bash
+python3 -m http.server 8000
+```
+
+Open `http://localhost:8000` in your browser. That's your portfolio site, live on your laptop. Empty so far — that's the whole point. The rest of the course fills it in.
+
 ## What to take away
 
 - An IDE is a text editor that understands your code and integrates your dev tools. VSCode is our pick.
